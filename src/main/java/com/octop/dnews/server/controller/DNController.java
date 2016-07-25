@@ -1,36 +1,39 @@
 package com.octop.dnews.server.controller;
 
 import com.octop.dnews.server.entity.News;
-import com.octop.dnews.server.repository.NewsRepository;
+import com.octop.dnews.server.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/news")
 public class DNController {
 
     @Autowired
-    private NewsRepository newsRepository;
+    private NewsService service;
 
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @RequestMapping(value = "/news", method = RequestMethod.GET)
     @ResponseBody
-    public News getNews(){
-        List<News> list = newsRepository.findAll();
-        return createMockNews();
+    public List<News> getAllNews(){
+        return service.getAll();
     }
 
-    private News createMockNews() {
-        News news = new News();
-        news.setId(1);
-        news.setTitle("Good news, evreone");
-        news.setNewsDate(new Date());
+    @RequestMapping(value = "/news/id={id}", method = RequestMethod.GET)
+    @ResponseBody
+    public News getOneNews(@PathVariable("id") long newsID){
+        return service.getByID(newsID);
+    }
 
-        return news;
+    @RequestMapping(value = "/news", method = RequestMethod.POST)
+    @ResponseBody
+    public News saveOneNews(@RequestBody News news){
+        return service.save(news);
+    }
+
+    @RequestMapping(value = "/news/id={id}", method = RequestMethod.POST)
+    @ResponseBody
+    public void delete(@PathVariable("id") long newsID){
+        service.remove(newsID);
     }
 }
