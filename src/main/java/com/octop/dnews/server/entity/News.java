@@ -18,6 +18,7 @@ public class News {
     private String title;
 
     @Column(name = "newsData", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date newsDate;
 
     public News() {

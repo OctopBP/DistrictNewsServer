@@ -1,6 +1,7 @@
 package com.octop.dnews.server;
 
 import com.octop.dnews.server.config.WebConfig;
+import com.octop.dnews.server.repository.NewsRepository;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;

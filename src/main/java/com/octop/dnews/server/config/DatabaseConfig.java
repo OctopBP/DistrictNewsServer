@@ -60,7 +60,7 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public PlatformTransactionManager platformTransactionManager() {
+    public PlatformTransactionManager transactionManager() {
         JpaTransactionManager manager = new JpaTransactionManager();
         manager.setEntityManagerFactory(entityManagerFactory().getObject());
 
@@ -75,7 +75,7 @@ public class DatabaseConfig {
 
             return properties;
         } catch (IOException e) {
-            throw new IllegalArgumentException("Can't find 'hibernate.properties' in classpath", e);
+            throw new IllegalArgumentException("Can't find 'hibernate.properties' in classpath!", e);
         }
     }
 }
